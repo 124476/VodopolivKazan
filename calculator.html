@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Системы автоматического полива в Казани.</title>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <script src='bootstrap/js/bootstrap.js'></script>
+  <link rel="icon" href='img/favicon.png'/>
+  <style>
+    #calculator {
+      padding: 1rem;
+    }
+    .total-price {
+      font-size: 1.5rem;
+    }
+    #totalprice {
+      color: red;
+      font-size: 2rem;
+    }
+
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="container" style="position: sticky;top: 0;z-index: 10;color:white;">
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <img src="img/favicon.png" width="50" height="50">
+    <a href="index.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32">
+        <use xlink:href="#bootstrap"></use>
+      </svg>
+      <span class="fs-4">Автополив - Казань</span>
+    </a>
+    <ul class="nav nav-pills">
+      <li><a href="index.html" class="nav-link" aria-current="page">Главная</a></li>
+      <li><a href="calculator.html" class="nav-link active">Калькулятор стоимости</a></li>
+      <li><a href="reviews.html" class="nav-link">Отзывы</a></li>
+      <li><a href="https://wa.me/+79376151716" class="nav-link" style="color:green">WhatsApp</a></li>
+    </ul>
+  </header>
+</div>
+<main>
+  <div id="calculator">
+    <div class="row">
+      <div class="col-md-6 left">
+        <div class="form-group row">
+          <div class="col-sm-7 col-6">
+            <label for="exampleInputEmail1">Площадь полива:</label>
+          </div>
+          <div class="col-sm-5 col-6">
+            <div class="input-group">
+              <input type="number" class="form-control" placeholder="Площадь" id="total_area">
+              <div class="input-group-append">
+                <span class="input-group-text">м2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-7 col-6">
+            <label for="exampleInputEmail1">Система полива нужна для:</label>
+          </div>
+          <div class="col-sm-5 col-6">
+            <select class="form-control" id="factura">
+              <option value="Дом, дача, коттедж">Дом, дача, коттедж</option>
+              <option value="Жилой комплек">Жилой комплекс</option>
+              <option value="Коммерческая территория">Коммерческая территория</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-7 col-6">
+            <label for="exampleInputEmail1">Источник воды для системы полива:</label>
+          </div>
+          <div class="col-sm-5 col-6">
+            <select class="form-control" id="factura2">
+              <option value="Скважина">Скважина</option>
+              <option value="Водопровод">Водопровод</option>
+              <option value="Емкость">Емкость</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 right">
+        <div class="h4">Примерная стоимость:</div>
+        <div class="total-price">
+          <span id="totalprice">0</span> руб.
+        </div>
+        <div class="mb-4" style="font-size: 17px;">(*точная стоимость потолка устанавливается замерщиком)</div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="text" name="your-name" value="" size="40" class="form-control" id="name" aria-required="true"
+                     aria-invalid="false" placeholder="Ваше имя">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <input type="tel" name="tel-412" value="" size="40" class="form-control" id="tel" aria-required="true"
+                     aria-invalid="false" placeholder="Ваш телефон">
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <textarea name="your-message" class="form-control" rows="4" id="zakaz_total" aria-required="true"
+                      aria-invalid="false"></textarea>
+          </div>
+        </div>
+        <div class="small-text">Ваши контактные данные защищены, не передаются третьим лицам</div>
+        <p id="error_text" style="color:red"></p>
+      </div>
+      <button id="btn_button" type="submit" class="btn btn-dark">Отправить</button>
+    </div>
+  </div>
+  <script>
+  var btn_button = document.getElementById('btn_button');
+  var error_text = document.getElementById('error_text');
+
+btn_button.onclick = button_send;
+function button_send(event) {
+  let name = document.getElementById('name').value;
+  let phone = document.getElementById('tel').value;
+  let mess = document.getElementById('zakaz_total').value;
+
+  let re = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/;
+  if (re.test(phone) == false) {
+    error_text.textContent = "Не валидный номер телефона";
+    return;
+  };
+  alert(name + '\n' + phone + '\n' + mess);
+};
+
+  var element = document.getElementById('total_area');
+  var element2 = document.getElementById('factura');
+  var element3 = document.getElementById('factura2');
+
+function myEventHandler(event) {
+    let total_area = document.getElementById('total_area').value;
+		let factura = document.getElementById("factura").selectedIndex;
+		let factura2 = document.getElementById("factura2").selectedIndex;
+		let factura_text = document.getElementById("factura").value;
+		let factura2_text = document.getElementById("factura2").value;
+
+		let total = total_area * (factura + 1) * (factura2 + 1) * 100;
+
+		document.getElementById('totalprice').textContent=total;
+
+		document.getElementById('zakaz_total').textContent =
+			'Площадь полива: ' + total_area + '\n' +
+			'Система полива нужна для: ' + factura_text + '\n' +
+			'Источник воды для системы полива: ' + factura2_text + '\n' +
+			'Рассчет: ' + total + '\n';
+};
+
+element.addEventListener("change", function (evt) {
+    myEventHandler(evt);
+}, false);
+element2.addEventListener("change", function (evt) {
+    myEventHandler(evt);
+}, false);
+element3.addEventListener("change", function (evt) {
+    myEventHandler(evt);
+}, false);
+
+
+
+  </script>
+</main>
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+  <div class="col-md-4 d-flex align-items-center">
+    <div class="container">
+      <span class="text-muted">&copy;  vodopoliv.pro</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
